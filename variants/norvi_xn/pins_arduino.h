@@ -87,9 +87,9 @@ static const uint8_t EXP_IO40 = 40;
 #ifndef NORVI_PCA9539_ADDR
 #define NORVI_PCA9539_ADDR      0x75
 #endif
-#define NORVI_B_BTN1_EXP_PIN      2   // P0_2
-#define NORVI_B_BTN2_EXP_PIN      1   // P0_1
-#define NORVI_B_LED_RUN_EXP_PIN   3   // P0_3
-#define NORVI_B_LED_ERROR_EXP_PIN 4   // P0_4
+#define NORVI_B_BTN1_EXP_PIN      1   // P0_1 (left button, hardware tested on X1 N16R8)
+#define NORVI_B_BTN2_EXP_PIN      2   // P0_2 (right button, hardware tested on X1 N16R8)
+#define NORVI_B_LED_RUN_EXP_PIN   4   // P0_4 (active-low, hardware tested on X1 N16R8; datasheet had P0_3)
+#define NORVI_B_LED_ERROR_EXP_PIN 3   // P0_3 (active-low, hardware tested on X1 N16R8; datasheet had P0_4)
 
 #endif /* Pins_Arduino_h */
