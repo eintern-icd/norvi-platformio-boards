@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <Wire.h>
+#include "norvi_io.h"
 
 bool psramTest() {
   const size_t N = 1024 * 1024;
@@ -26,17 +27,20 @@ void setup() {
   Wire.begin(SDA, SCL);
   pinMode(BOOT_BUTTON, INPUT_PULLUP);
   Serial1.begin(9600, SERIAL_8N1, RS485_RX, RS485_TX);
+  NorviIO::begin();
 }
 
 void loop() {
-  Serial.printf("Flash: %u  PSRAM: %u  free PSRAM: %u\n",
-                ESP.getFlashChipSize(), ESP.getPsramSize(), ESP.getFreePsram());
+  Serial.printf("Flash: %u  PSRAM: %u\n", ESP.getFlashChipSize(), ESP.getPsramSize());
   psramTest();
-  Serial.printf("Pins: SDA=%d SCL=%d W5500_CS=%d SD_CS=%d RS485_TX=%d RS485_RX=%d\n",
-                SDA, SCL, W5500_CS, SD_CS, RS485_TX, RS485_RX);
-  Serial.printf("BOOT button: %s\n", digitalRead(BOOT_BUTTON) ? "released" : "PRESSED");
-  Serial1.println("RS485 test");
+  Serial.printf("Buttons/LEDs expander: %s\n", NorviIO::name());
+  Serial.printf("BTN1 raw=%d  BTN2 raw=%d  BOOT=%s\n",
+                NorviIO::buttonRaw(1), NorviIO::buttonRaw(2),
+                digitalRead(BOOT_BUTTON) ? "released" : "PRESSED");
+  Serial.println("LED: RUN");   NorviIO::led(true, false);  delay(1000);
+  Serial.println("LED: ERROR"); NorviIO::led(false, true);  delay(1000);
+  Serial.println("LED: off");   NorviIO::led(false, false);
   i2cScan();
   Serial.println("---");
-  delay(5000);
+  delay(2000);
 }
