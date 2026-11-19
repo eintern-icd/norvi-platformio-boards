@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "soc/soc_caps.h"
 
-// USB (VID/PID to be confirmed with lead)
+// USB (VID/PID to be confirmed with lead; hardware reports 0x303A:0x1001)
 #define USB_VID 0x303a
 #define USB_PID 0x1001
 #define USB_MANUFACTURER "NORVI"
@@ -15,7 +15,7 @@
 static const uint8_t TX = 43;
 static const uint8_t RX = 44;
 
-// I2C (touch 0x15, DS3231 0x68, PCA9539 0x75)
+// I2C (touch 0x15, PCA9536 0x41, DS3231 0x68, PCA9539 0x75)
 static const uint8_t SDA = 8;
 static const uint8_t SCL = 9;
 
@@ -46,15 +46,19 @@ static const uint8_t RS485_RX = 16;
 // Boot button
 static const uint8_t BOOT_BUTTON = 0;
 
-// PCA9539 expander (address 0x75): buttons, LEDs and expansion CS
-// The *_EXP_PIN values are EXPANDER pins, not GPIOs
+// PCA9536 expander (address 0x41): buttons and LEDs
+// Hardware-tested on XN: buttons are here, not on the PCA9539 as the datasheet says.
+// The *_EXP_PIN values are EXPANDER pins, not GPIOs.
+#define NORVI_PCA9536_ADDR      0x41
+static const uint8_t PCA9536_RST = 38;   // GPIO that resets the expander
+#define NORVI_BTN1_EXP_PIN      0        // P0
+#define NORVI_BTN2_EXP_PIN      3        // P3
+#define NORVI_LED_ERROR_EXP_PIN 1        // P1
+#define NORVI_LED_RUN_EXP_PIN   2        // P2
+
+// PCA9539 expander (address 0x75): chip-selects for expansion modules
 // Numbering: port 0 = 0..7, port 1 = 8..15
 #define NORVI_PCA9539_ADDR      0x75
-static const uint8_t PCA9539_RST = 38;   // GPIO that resets the expander
-#define NORVI_BTN1_EXP_PIN      2        // P0_2
-#define NORVI_BTN2_EXP_PIN      1        // P0_1
-#define NORVI_LED_RUN_EXP_PIN   3        // P0_3
-#define NORVI_LED_ERROR_EXP_PIN 4        // P0_4
 #define NORVI_EXP_CS1_PIN       8        // P1_0
 #define NORVI_EXP_CS2_PIN       7        // P0_7
 #define NORVI_EXP_CS3_PIN       6        // P0_6
