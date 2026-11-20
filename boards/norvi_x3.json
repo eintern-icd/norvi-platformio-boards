@@ -30,6 +30,7 @@
   },
   "connectivity": [
     "bluetooth",
+    "cellular",
     "ethernet",
     "wifi"
   ],
