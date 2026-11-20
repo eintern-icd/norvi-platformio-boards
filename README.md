@@ -67,6 +67,7 @@ Results for the units tested so far, using `examples/full_test`.
 | norvi_xn | Pass | Pass | 2 MB PSRAM | Pass: PSRAM, PCA9536 buttons, RTC, Wi-Fi AP, display |
 | norvi_x1_n16r8 | Pass | Pass | 8 MB PSRAM | Pass: PSRAM 8 MB, PCA9539 buttons, LEDs, touch, RTC, Wi-Fi AP, display |
 | norvi_x1 (N16R2) | Pass | Pass | 2 MB PSRAM | Pass: PSRAM, PCA9536 buttons, LEDs, touch, RTC, Wi-Fi AP, display, output test (SD, Ethernet, NTP, RS485 not tested: no card, cable, network or loopback) |
+| norvi_x2 | Pass | Pass | 2 MB PSRAM | Pass: PSRAM, PCA9536 buttons (PB1, PB3), LEDs, touch, RTC, Wi-Fi AP, display, output test (SD, Ethernet, NTP, RS485 and the SIMCOM modem not tested) |
 
 Not covered by the hardware tests: SD card, Ethernet, RS485 and NTP.
 
@@ -96,6 +97,8 @@ SD card, Ethernet, NTP and RS485 show as not OK because no card, cable, network 
 Serial output for the NORVI XN (full_test): [test-results/norvi_xn_serial.txt](test-results/norvi_xn_serial.txt)
 
 Serial output for the NORVI X1 N16R8 (full_test): [test-results/norvi_x1_n16r8_serial.txt](test-results/norvi_x1_n16r8_serial.txt)
+
+Serial output for the NORVI X2 (full_test): [test-results/norvi_x2_serial.txt](test-results/norvi_x2_serial.txt)
 
 ## Links
 
