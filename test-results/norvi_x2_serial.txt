@@ -1,0 +1,122 @@
+﻿NORVI X2 - full_test serial output
+Board: norvi_x2, MAC 10:BD:A3:65:54:48
+Captured with a pyserial script (115200 8-N-1), board reset after the capture started.
+Trimmed: boot, start-up, benchmark and TEST SUMMARY (first 80 lines), then samples of the touch and button messages. Three benchmark values that wrapped onto a new line were joined back to their labels.
+
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0xb (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4037a326
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2820,len:0x10cc
+load:0x403c8700,len:0xc2c
+load:0x403cb700,len:0x30b0
+entry 0x403c88b8
+NORVI X2 full test
+PSRAM: found, size 2097152 bytes, free 2093072 bytes
+PSRAM 1 MB alloc: OK
+
+Scanning I2C...
+I2C device found at address 0x15  !  CST816S touch
+I2C device found at address 0x41  !  PCA9536 buttons/LEDs
+I2C device found at address 0x68  !  DS3231 RTC
+I2C device found at address 0x75  !  PCA9539 I/O expander
+I2C scan complete: 4 device(s) found
+PCA9536 OK (buttons & LEDs ready).
+0	182-0-1
+LovyanGFX library test!
+Outputs ready (17 outputs, walking test runs in loop).
+RTC Initialized.
+2026/11/20 Friday 14:18:10
+2026/11/20 Friday 14:18:11
+2026/11/20 Friday 14:18:12
+2026/11/20 Friday 14:18:13
+2026/11/20 Friday 14:18:14
+
+Initializing SD card...
+NO SD card
+
+Initializing Ethernet...
+Ethernet cable is not connected
+
+Initializing Wi-Fi (SoftAP mode)...
+MAC Address: 10:BD:A3:65:54:48
+Access Point IP address: 192.168.4.1
+Access Point SSID: 10:BD:A3:65:54:48
+Wi-Fi Access Point is active!
+
+Testing RS485 (flow control is automatic)...
+No RS485 echo (connect a loopback to see the message come back)
+Benchmark                Time (microseconds)
+Screen fill              235475
+Text                     11978
+Lines                    109384
+Horiz/Vert Lines         20252
+Rectangles (outline)     12866
+Rectangles (filled)      482934
+Circles (filled)         65559
+Circles (outline)        40130
+Triangles (outline)      25584
+Triangles (filled)       166461
+Rounded rects (outline)  20358
+Rounded rects (filled)   492345
+Done!
+
+================ TEST SUMMARY ================
+I2C devices : 4 found (0x41 present = PCA9536 version, absent = PCA9539 version)
+Buttons/LEDs: PCA9536 @0x41 (OK)
+RTC DS3231  : OK
+PSRAM       : 2097152 bytes
+SD card     : NOT FOUND (no card?)
+Ethernet    : NOT OK (no cable or no link)
+NTP         : NO RESPONSE
+Wi-Fi AP    : OK
+RS485 echo  : NO ECHO (no loopback?)
+==============================================
+Touch the screen to see gesture and X/Y; press PB1 / PB3 to see the button messages.
+
+IO TEST
+OUTPUT5 ON
+OUTPUT6 ON
+OUTPUT7 ON
+
+--- sample: touch ---
+NONE	1	2	114	215
+NONE	1	2	113	213
+SWIPE DOWN	1	2	111	207
+SWIPE DOWN	1	2	109	199
+SWIPE DOWN	1	2	108	195
+SWIPE DOWN	1	2	106	187
+SWIPE DOWN	1	2	104	181
+SWIPE DOWN	1	2	102	175
+SWIPE DOWN	1	2	101	171
+SWIPE DOWN	1	2	99	168
+SWIPE DOWN	1	2	99	162
+SWIPE DOWN	1	2	99	155
+SWIPE DOWN	1	2	99	147
+SWIPE DOWN	1	2	99	139
+SWIPE DOWN	1	2	99	131
+
+--- sample: buttons (PB1 and PB3 pressed by hand) ---
+CS3 ON
+CS4 ON
+PB1 pressed
+PB1 released
+PB1 Read: 0
+PB2 Read: 0
+PB1 pressed
+PB1 released
+PB1 pressed
+All outputs OFF
+PB1 released
+IO TEST
+PB1 pressed
+PB1 released
+PB3 pressed
+PB3 released
+OUTPUT5 ON
+PB3 pressed
+OUTPUT6 ON
+PB3 released
+PB3 pressed
