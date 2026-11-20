@@ -2,14 +2,15 @@
 
 Custom PlatformIO board definitions for NORVI X controllers (ESP32-S3).
 
-| Board ID  | Controller         | Modem         |
-|-----------|--------------------|---------------|
-| norvi_x1  | NORVI CPU-ESPS3-X1 | none          |
-| norvi_x2  | NORVI CPU-ESPS3-X2 | SIMCOM A7672G |
-| norvi_x3  | NORVI CPU-ESPS3-X3 | Quectel EC25  |
-| norvi_xn  | NORVI XN-MAIN      | A7672X        |
+| Board ID | Controller | Flash / PSRAM | Modem |
+|---|---|---|---|
+| norvi_x1 | NORVI CPU-ESPS3-X1 | 16 MB / 2 MB quad (N16R2) | none |
+| norvi_x1_n16r8 | NORVI CPU-ESPS3-X1 | 16 MB / 8 MB octal (N16R8) | none |
+| norvi_x2 | NORVI CPU-ESPS3-X2 | 16 MB / 2 MB quad (N16R2) | SIMCOM A7672G |
+| norvi_x3 | NORVI CPU-ESPS3-X3 | 16 MB / 2 MB quad (N16R2) | Quectel EC25 |
+| norvi_xn | NORVI XN-MAIN | 16 MB / 2 MB quad (N16R2) | A7672X |
 
-All boards: ESP32-S3-WROOM-1U-N16R2, 16 MB flash (QIO 80 MHz), 2 MB quad PSRAM, native USB, 240 MHz.
+All boards: ESP32-S3, 16 MB flash (QIO 80 MHz), native USB, 240 MHz.
 
 > A pull request to platformio/platform-espressif32 is planned. Once it is merged, these files are no longer needed.
 
@@ -28,7 +29,7 @@ board_build.variant = norvi_x1
 monitor_speed = 115200
 ```
 
-Use `norvi_x2`, `norvi_x3` or `norvi_xn` for the other boards.
+Use `norvi_x1_n16r8`, `norvi_x2`, `norvi_x3` or `norvi_xn` for the other boards.
 
 3. Build with `pio run`.
 
@@ -36,18 +37,37 @@ Use `norvi_x2`, `norvi_x3` or `norvi_xn` for the other boards.
 
 The variant files define names such as `SDA`, `SCL`, `RS485_TX`, `RS485_RX`, `W5500_CS`, `SD_CS` and `DISPLAY_CS`. See `variants/<board>/pins_arduino.h` for the full list.
 
-Buttons and LEDs are on I2C expanders (PCA9536 on X1/X2/X3, PCA9539 on XN). The `NORVI_*_EXP_PIN` values are expander pin numbers, not GPIOs. Digital inputs, relays and analog inputs come from NORVI expansion modules and are not defined here.
+Buttons and LEDs are on I2C expanders. The `NORVI_*_EXP_PIN` values are expander pin numbers, not GPIOs. Digital inputs, relays and analog inputs come from NORVI expansion modules and are not defined here.
+
+Expander found on the test units (see `examples/full_test`):
+
+- XN: PCA9536 at 0x41 (buttons PB1/PB3), PCA9539 at 0x75.
+- X1 N16R8: no PCA9536; buttons and LEDs on the PCA9539 at 0x75.
+
+The `full_test` example detects which expander is present at start-up.
 
 ## Notes
 
 - Upload uses the ESP32-S3 native USB. USB CDC On Boot is enabled.
 - Partition table: `default_16MB.csv`.
-- The customised N16R8 (octal PSRAM) variants are not covered.
+- `norvi_x1_n16r8` uses octal PSRAM (`qio_opi`). On octal-PSRAM modules GPIO35 to GPIO37 are used by the PSRAM and are not available as normal I/O.
 - USB VID/PID uses the Espressif default (0x303A:0x1001), pending confirmation.
+
+## Tested versions
+
+Espressif 32 platform 8.0.0, framework-arduinoespressif32 3.3.12, esptool 5.4.0, PlatformIO Core 6.2.0.
 
 ## Status
 
-Build-tested for all four boards. Hardware flash test: pending.
+| Board | Build | Upload | Chip check | full_test |
+|---|---|---|---|---|
+| norvi_xn | Pass | Pass | 2 MB PSRAM | Pass: PSRAM, PCA9536 buttons, RTC, Wi-Fi AP, display |
+| norvi_x1_n16r8 | Pass | Pass | 8 MB PSRAM | Pass: PSRAM 8 MB, PCA9539 buttons, LEDs, touch, RTC, Wi-Fi AP, display |
+| norvi_x1 (N16R2) | Pass | Not tested | | Not tested |
+| norvi_x2 | Pass | Not tested | | Build-tested only (no unit) |
+| norvi_x3 | Pass | Not tested | | Build-tested only (no unit) |
+
+Not covered by the hardware tests: SD card, Ethernet, RS485 and NTP.
 
 ## Links
 
