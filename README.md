@@ -70,6 +70,29 @@ Results for the units tested so far, using `examples/full_test`.
 
 Not covered by the hardware tests: SD card, Ethernet, RS485 and NTP.
 
+### Serial output
+
+Serial output from `examples/full_test` on the NORVI X1 (N16R2):
+[test-results/norvi_x1_n16r2_serial.txt](test-results/norvi_x1_n16r2_serial.txt)
+
+Summary block from that run:
+
+```text
+================ TEST SUMMARY ================
+I2C devices : 4 found (0x41 present = PCA9536 version, absent = PCA9539 version)
+Buttons/LEDs: PCA9536 @0x41 (OK)
+RTC DS3231  : OK
+PSRAM       : 2097152 bytes
+SD card     : NOT FOUND (no card?)
+Ethernet    : NOT OK (no cable or no link)
+NTP         : NO RESPONSE
+Wi-Fi AP    : OK
+RS485 echo  : NO ECHO (no loopback?)
+==============================================
+```
+
+SD card, Ethernet, NTP and RS485 show as not OK because no card, cable, network or loopback was connected.
+
 ## Links
 
 - https://norvi.io/

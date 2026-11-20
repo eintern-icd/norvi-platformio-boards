@@ -1,0 +1,101 @@
+﻿NORVI X1 (N16R2) - full_test serial output
+Board: norvi_x1, chip ESP32-S3 (QFN56) rev v0.2, Embedded PSRAM 2MB
+MAC: 10:bd:a3:65:54:d4
+Monitor: platformio device monitor -p COM25 --dtr 0 --rts 0 (115200 8-N-1)
+Trimmed: start-up, TEST SUMMARY and a sample of the button and touch messages.
+
+NORVI X1 full test
+PSRAM: found, size 2097152 bytes, free 2093072 bytes
+PSRAM 1 MB alloc: OK
+
+Scanning I2C...
+I2C device found at address 0x15  !  CST816S touch
+I2C device found at address 0x41  !  PCA9536 buttons/LEDs
+I2C device found at address 0x68  !  DS3231 RTC
+I2C device found at address 0x75  !  PCA9539 I/O expander
+I2C scan complete: 4 device(s) found
+PCA9536 OK (buttons & LEDs ready).
+0       182-0-1
+LovyanGFX library test!
+Outputs ready (17 outputs, walking test runs in loop).
+RTC Initialized.
+2026/11/19 Thursday 15:27:37
+2026/11/19 Thursday 15:27:38
+2026/11/19 Thursday 15:27:39
+2026/11/19 Thursday 15:27:40
+2026/11/19 Thursday 15:27:41
+
+Initializing SD card...NO SD card
+
+Initializing Ethernet...
+Ethernet cable is not connected
+
+Initializing Wi-Fi (SoftAP mode)...
+MAC Address: 10:BD:A3:65:54:D4
+Access Point IP address: 192.168.4.1
+Access Point SSID: 10:BD:A3:65:54:D4
+Wi-Fi Access Point is active!
+
+Testing RS485 (flow control is automatic)...
+No RS485 echo (connect a loopback to see the message come back)
+Benchmark                Time (microseconds)
+Screen fill              235465
+Text                     11996
+Lines                    109385
+Horiz/Vert Lines         20242
+Rectangles (outline)     12866
+Rectangles (filled)      482874
+Circles (filled)         65512
+Circles (outline)        40128
+Triangles (outline)      25580
+Triangles (filled)       166451
+Rounded rects (outline)  20353
+Rounded rects (filled)   492346
+Done!
+
+================ TEST SUMMARY ================
+I2C devices : 4 found (0x41 present = PCA9536 version, absent = PCA9539 version)
+Buttons/LEDs: PCA9536 @0x41 (OK)
+RTC DS3231  : OK
+PSRAM       : 2097152 bytes
+SD card     : NOT FOUND (no card?)
+Ethernet    : NOT OK (no cable or no link)
+NTP         : NO RESPONSE
+Wi-Fi AP    : OK
+RS485 echo  : NO ECHO (no loopback?)
+==============================================
+Touch the screen to see gesture and X/Y; press PB1 / PB3 to see the button messages.
+
+--- sample: output walking test ---
+IO TEST
+OUTPUT5 ON
+OUTPUT6 ON
+OUTPUT7 ON
+OUTPUT10 ON
+OUTPUT14 ON
+OUTPUT19 ON
+OUTPUT20 ON
+OUTPUT21 ON
+OUTPUT33 ON
+OUTPUT34 ON
+OUTPUT38 ON
+OUTPUT39 ON
+OUTPUT40 ON
+CS1 ON
+CS2 ON
+CS3 ON
+CS4 ON
+All outputs OFF
+
+--- sample: buttons (PB1 and PB3 pressed by hand) ---
+PB3 pressed
+PB3 released
+PB1 pressed
+PB1 Read: 1
+PB2 Read: 0
+PB1 released
+
+--- sample: touch ---
+NONE    1       0       174     214
+SWIPE DOWN      1       2       166     195
+SWIPE DOWN      1       2       144     93
