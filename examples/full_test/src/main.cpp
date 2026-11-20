@@ -233,7 +233,25 @@ void setup() {
   delay(2000);
   Serial2.begin(115200, SERIAL_8N1, RS485_RXD, RS485_TXD);
 
-  Serial.println("NPD-NORVI XN-CPU-ESPS3");
+  #if defined(NORVI_X1_N16R8)
+  Serial.println("NORVI X1 N16R8 full test");
+#elif defined(NORVI_X1)
+  Serial.println("NORVI X1 full test");
+#elif defined(NORVI_X2)
+  Serial.println("NORVI X2 full test");
+#elif defined(NORVI_X3)
+  Serial.println("NORVI X3 full test");
+#elif defined(NORVI_XN)
+  Serial.println("NORVI XN full test");
+#else
+  Serial.println("NORVI board full test");
+#endif
+
+  Serial.printf("PSRAM: %s, size %lu bytes, free %lu bytes\n",
+                psramFound() ? "found" : "NOT found", (unsigned long)ESP.getPsramSize(), (unsigned long)ESP.getFreePsram());
+  void *psramTest = ps_malloc(1024 * 1024);
+  Serial.printf("PSRAM 1 MB alloc: %s\n", psramTest ? "OK" : "FAILED");
+  if (psramTest) { memset(psramTest, 0xA5, 1024 * 1024); free(psramTest); }
   delay(1000);
 
   pinMode(PORT_RST, OUTPUT);
@@ -720,7 +738,7 @@ void WIFI_CHECK() {
   WiFi.mode(WIFI_MODE_APSTA);
 
   byte wifiMac[6];
-  WiFi.macAddress(wifiMac);
+  uint64_t efuseMac = ESP.getEfuseMac(); for (int i = 0; i < 6; i++) wifiMac[i] = (efuseMac >> (8 * i)) & 0xFF;
   char macText[18];
   snprintf(macText, sizeof(macText), "%02X:%02X:%02X:%02X:%02X:%02X",
            wifiMac[0], wifiMac[1], wifiMac[2], wifiMac[3], wifiMac[4], wifiMac[5]);
@@ -765,11 +783,12 @@ void printSummary() {
   Serial.printf("I2C devices : %d found (0x41 present = PCA9536 version, absent = PCA9539 version)\n", i2cDeviceCount);
   Serial.printf("Buttons/LEDs: %s\n", !okPca9536 ? "NOT FOUND" : useV9539 ? "PCA9539 @0x75 (OK)" : "PCA9536 @0x41 (OK)");
   Serial.printf("RTC DS3231  : %s\n", okRtc      ? "OK" : "NOT FOUND");
-  Serial.printf("SD card     : %s\n", okSd       ? "OK" : "NOT FOUND");
-  Serial.printf("Ethernet    : %s\n", okEthernet ? "OK" : "FAILED");
+  Serial.printf("PSRAM       : %lu bytes\n", (unsigned long)ESP.getPsramSize());
+  Serial.printf("SD card     : %s\n", okSd       ? "OK" : "NOT FOUND (no card?)");
+  Serial.printf("Ethernet    : %s\n", okEthernet ? "OK" : "NOT OK (no cable or no link)");
   Serial.printf("NTP         : %s\n", okNtp      ? "OK" : "NO RESPONSE");
   Serial.printf("Wi-Fi AP    : %s\n", okWifi     ? "OK" : "FAILED");
-  Serial.printf("RS485 echo  : %s\n", okRs485    ? "OK" : "NO ECHO");
+  Serial.printf("RS485 echo  : %s\n", okRs485    ? "OK" : "NO ECHO (no loopback?)");
   Serial.println("==============================================");
   Serial.println("Touch the screen to see gesture and X/Y; press PB1 / PB3 to see the button messages.\n");
 }
