@@ -93,6 +93,8 @@ RS485 echo  : NO ECHO (no loopback?)
 
 SD card, Ethernet, NTP and RS485 show as not OK because no card, cable, network or loopback was connected.
 
+Serial output for the NORVI XN (full_test): [test-results/norvi_xn_serial.txt](test-results/norvi_xn_serial.txt)
+
 ## Links
 
 - https://norvi.io/
