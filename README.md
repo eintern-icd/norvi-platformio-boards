@@ -43,6 +43,7 @@ Expander found on the test units (see `examples/full_test`):
 
 - XN: PCA9536 at 0x41 (buttons PB1/PB3), PCA9539 at 0x75.
 - X1 N16R8: no PCA9536; buttons and LEDs on the PCA9539 at 0x75.
+- X1 N16R2: PCA9536 at 0x41 (buttons PB1/PB3, LEDs), PCA9539 at 0x75. In `full_test`, PB3 is reported as the "PB2" read.
 
 The `full_test` example detects which expander is present at start-up.
 
@@ -63,7 +64,7 @@ Espressif 32 platform 8.0.0, framework-arduinoespressif32 3.3.12, esptool 5.4.0,
 |---|---|---|---|---|
 | norvi_xn | Pass | Pass | 2 MB PSRAM | Pass: PSRAM, PCA9536 buttons, RTC, Wi-Fi AP, display |
 | norvi_x1_n16r8 | Pass | Pass | 8 MB PSRAM | Pass: PSRAM 8 MB, PCA9539 buttons, LEDs, touch, RTC, Wi-Fi AP, display |
-| norvi_x1 (N16R2) | Pass | Not tested | | Not tested |
+| norvi_x1 (N16R2) | Pass | Pass | 2 MB PSRAM | Pass: PSRAM, PCA9536 buttons, LEDs, touch, RTC, Wi-Fi AP, display, output test (SD, Ethernet, NTP, RS485 not tested: no card, cable, network or loopback) |
 | norvi_x2 | Pass | Not tested | | Build-tested only (no unit) |
 | norvi_x3 | Pass | Not tested | | Build-tested only (no unit) |
 
@@ -73,3 +74,7 @@ Not covered by the hardware tests: SD card, Ethernet, RS485 and NTP.
 
 - https://norvi.io/
 - https://github.com/NORVIControllers/NORVI-X-Version02
+
+## Troubleshooting
+
+If the serial monitor is blank after an upload, try `platformio run -e norvi_x1 -t clean`, upload again, and open the monitor with `platformio device monitor --dtr 0 --rts 0`. This fixed a blank monitor on one N16R2 X1 unit. The exact cause was not confirmed.
