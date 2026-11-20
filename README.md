@@ -58,15 +58,15 @@ The `full_test` example detects which expander is present at start-up.
 
 Espressif 32 platform 8.0.0, framework-arduinoespressif32 3.3.12, esptool 5.4.0, PlatformIO Core 6.2.0.
 
-## Status
+## Test results
+
+Results for the units tested so far, using `examples/full_test`.
 
 | Board | Build | Upload | Chip check | full_test |
 |---|---|---|---|---|
 | norvi_xn | Pass | Pass | 2 MB PSRAM | Pass: PSRAM, PCA9536 buttons, RTC, Wi-Fi AP, display |
 | norvi_x1_n16r8 | Pass | Pass | 8 MB PSRAM | Pass: PSRAM 8 MB, PCA9539 buttons, LEDs, touch, RTC, Wi-Fi AP, display |
 | norvi_x1 (N16R2) | Pass | Pass | 2 MB PSRAM | Pass: PSRAM, PCA9536 buttons, LEDs, touch, RTC, Wi-Fi AP, display, output test (SD, Ethernet, NTP, RS485 not tested: no card, cable, network or loopback) |
-| norvi_x2 | Pass | Not tested | | Build-tested only (no unit) |
-| norvi_x3 | Pass | Not tested | | Build-tested only (no unit) |
 
 Not covered by the hardware tests: SD card, Ethernet, RS485 and NTP.
 
