@@ -95,6 +95,8 @@ SD card, Ethernet, NTP and RS485 show as not OK because no card, cable, network 
 
 Serial output for the NORVI XN (full_test): [test-results/norvi_xn_serial.txt](test-results/norvi_xn_serial.txt)
 
+Serial output for the NORVI X1 N16R8 (full_test): [test-results/norvi_x1_n16r8_serial.txt](test-results/norvi_x1_n16r8_serial.txt)
+
 ## Links
 
 - https://norvi.io/
